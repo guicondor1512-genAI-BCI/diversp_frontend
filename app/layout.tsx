@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import { AuthControls } from "@/components/AuthControls";
 
 export const metadata: Metadata = {
   title: "DiverSampa — a vida cultural de São Paulo em tempo real",
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 >
                   llms.txt
                 </Link>
+                <AuthControls />
               </nav>
             </div>
           </header>
