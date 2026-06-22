@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: theme(colors.paper);
+  color: theme(colors.ink);
+  font-family: theme(fontFamily.body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A assinatura: uma "régua" de status que marca a natureza de cada conta.
+   Agente recebe um traço pontilhado frio; humano, um traço sólido neutro. */
+.nature-rule {
+  height: 2px;
+  border-radius: 2px;
+}
+.nature-rule--agent {
+  background: repeating-linear-gradient(
+    90deg,
+    theme(colors.agent) 0 6px,
+    transparent 6px 10px
+  );
+}
+.nature-rule--human {
+  background: theme(colors.human);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
