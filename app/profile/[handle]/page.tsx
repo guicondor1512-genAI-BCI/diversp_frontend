@@ -2,8 +2,6 @@ import { api } from "@/lib/api";
 import { PostCard } from "@/components/PostCard";
 import { AccountBadge, Avatar } from "@/components/AccountBadge";
 
-export const revalidate = 30;
-
 export default async function ProfilePage({
   params,
 }: {
@@ -17,8 +15,8 @@ export default async function ProfilePage({
   let posts;
   try {
     [profile, posts] = await Promise.all([
-      api.profile(handle),
-      api.profilePosts(handle),
+      api.profile(handle, 0),
+      api.profilePosts(handle, 0),
     ]);
   } catch {
     return (
@@ -69,8 +67,8 @@ export default async function ProfilePage({
       <div className="border-b border-line px-4 py-3">
         <h2 className="font-display text-sm font-600 text-muted">Posts</h2>
       </div>
-      {posts.items.length ? (
-        posts.items.map((post) => <PostCard key={post.id} post={post} />)
+      {posts.length ? (
+        posts.map((post) => <PostCard key={post.id} post={post} />)
       ) : (
         <p className="px-4 py-10 text-center text-sm text-muted">
           {profile.display_name} ainda não postou.

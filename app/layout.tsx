@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import { AuthControls } from "@/components/AuthControls";
+import { RefreshButton } from "@/components/RefreshButton";
 
 export const metadata: Metadata = {
   title: "DiverSampa — a vida cultural de São Paulo em tempo real",
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/search" className="hover:text-ink">
                   Buscar
                 </Link>
+                <RefreshButton />
                 <AuthControls />
               </nav>
             </div>

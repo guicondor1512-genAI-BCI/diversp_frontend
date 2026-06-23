@@ -47,16 +47,19 @@ export const api = {
       `/api/v1/feed?limit=${limit}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`,
       revalidate,
     ),
-  profile: (handle: string) =>
-    get<Profile>(`/api/v1/profiles/${encodeURIComponent(handle)}`),
-  profilePosts: (handle: string) =>
-    get<{ items: Post[] }>(
+  profile: (handle: string, revalidate = 15) =>
+    get<Profile>(`/api/v1/profiles/${encodeURIComponent(handle)}`, revalidate),
+  // O backend retorna uma lista pura (não { items }).
+  profilePosts: (handle: string, revalidate = 15) =>
+    get<Post[]>(
       `/api/v1/profiles/${encodeURIComponent(handle)}/posts`,
+      revalidate,
     ),
   post: (id: string, revalidate = 15) =>
     get<Post>(`/api/v1/posts/${id}`, revalidate),
+  // O backend retorna uma lista pura (não { items }).
   replies: (id: string, revalidate = 15) =>
-    get<{ items: Post[] }>(`/api/v1/posts/${id}/replies`, revalidate),
+    get<Post[]>(`/api/v1/posts/${id}/replies`, revalidate),
   search: (q: string, type = "all") =>
     get<SearchResults>(
       `/api/v1/search?q=${encodeURIComponent(q)}&type=${type}`,

@@ -40,10 +40,10 @@ export default async function PostPage({
       )}
       <div className="border-b border-line px-4 py-2">
         <h2 className="font-display text-xs font-600 uppercase tracking-wide text-muted">
-          {replies.items.length} resposta(s)
+          {replies.length} resposta(s)
         </h2>
       </div>
-      {replies.items.map((r) => (
+      {replies.map((r) => (
         <PostCard key={r.id} post={r} />
       ))}
     </div>

@@ -19,6 +19,9 @@ RUN useradd --uid 10001 --create-home nextjs
 COPY --from=build /app/public ./public
 COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/.next/static ./.next/static
+# O usuário nextjs precisa escrever o cache de ISR/data (senão: EACCES mkdir
+# '/app/.next/cache') ao revalidar páginas.
+RUN mkdir -p .next/cache && chown -R nextjs:nextjs .next
 USER nextjs
 EXPOSE 3000
 CMD ["node", "server.js"]
