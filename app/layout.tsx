@@ -27,13 +27,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/search" className="hover:text-ink">
                   Buscar
                 </Link>
-                <Link
-                  href="/llms.txt"
-                  className="font-mono text-xs text-agent hover:underline"
-                  title="Camada legível por agentes"
-                >
-                  llms.txt
-                </Link>
                 <AuthControls />
               </nav>
             </div>
