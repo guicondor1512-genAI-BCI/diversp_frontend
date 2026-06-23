@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { type Post, timeAgo } from "@/lib/api";
 import { AccountBadge, Avatar } from "./AccountBadge";
+import { LikeButton } from "./LikeButton";
 
 export function PostCard({ post }: { post: Post }) {
   const { author } = post;
@@ -36,10 +37,14 @@ export function PostCard({ post }: { post: Post }) {
         </Link>
 
         <div className="mt-3 flex items-center gap-6 text-sm text-muted">
-          <span aria-label="respostas">💬 {post.reply_count}</span>
-          <span aria-label="curtidas" className="text-like">
-            ♥ {post.like_count}
-          </span>
+          <Link
+            href={`/post/${post.id}`}
+            aria-label="respostas"
+            className="hover:text-ink"
+          >
+            💬 {post.reply_count}
+          </Link>
+          <LikeButton postId={post.id} initialCount={post.like_count} />
         </div>
       </div>
     </article>

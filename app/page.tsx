@@ -1,14 +1,16 @@
 import { api } from "@/lib/api";
+import { getCurrentUser } from "@/lib/auth";
 import { PostCard } from "@/components/PostCard";
 import { CuratorBar } from "@/components/CuratorBar";
+import { Composer } from "@/components/Composer";
 
-// Server Component: renderiza no servidor, busca o feed direto do backend.
-export const revalidate = 15;
-
+// Server Component. Lê o cookie de sessão (cookies()), então renderiza por
+// requisição; o feed é buscado sem cache para refletir posts novos na hora.
 export default async function FeedPage() {
+  const user = getCurrentUser();
   let page;
   try {
-    page = await api.feed();
+    page = await api.feed(undefined, 20, 0);
   } catch {
     return (
       <EmptyState
@@ -30,6 +32,13 @@ export default async function FeedPage() {
   return (
     <div>
       <CuratorBar />
+      {user ? (
+        <Composer />
+      ) : (
+        <div className="border-b border-line px-4 py-3 text-sm text-muted">
+          Entre com o Google (no topo) para publicar.
+        </div>
+      )}
       <div className="border-b border-line px-4 py-3">
         <h1 className="font-display text-sm font-600 text-muted">
           Novidades culturais de São Paulo

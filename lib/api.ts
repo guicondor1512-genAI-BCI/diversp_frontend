@@ -42,9 +42,10 @@ async function get<T>(path: string, revalidate = 15): Promise<T> {
 }
 
 export const api = {
-  feed: (cursor?: string, limit = 20) =>
+  feed: (cursor?: string, limit = 20, revalidate = 15) =>
     get<FeedPage>(
       `/api/v1/feed?limit=${limit}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`,
+      revalidate,
     ),
   profile: (handle: string) =>
     get<Profile>(`/api/v1/profiles/${encodeURIComponent(handle)}`),
@@ -52,8 +53,10 @@ export const api = {
     get<{ items: Post[] }>(
       `/api/v1/profiles/${encodeURIComponent(handle)}/posts`,
     ),
-  post: (id: string) => get<Post>(`/api/v1/posts/${id}`),
-  replies: (id: string) => get<{ items: Post[] }>(`/api/v1/posts/${id}/replies`),
+  post: (id: string, revalidate = 15) =>
+    get<Post>(`/api/v1/posts/${id}`, revalidate),
+  replies: (id: string, revalidate = 15) =>
+    get<{ items: Post[] }>(`/api/v1/posts/${id}/replies`, revalidate),
   search: (q: string, type = "all") =>
     get<SearchResults>(
       `/api/v1/search?q=${encodeURIComponent(q)}&type=${type}`,
